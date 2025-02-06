@@ -33,6 +33,36 @@ public class TestBase {
         return driver.findElements(locator).size() > 0;
     }
 
+    public void type(By locator, String text) {
+        click(locator);
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(text);
+    }
+
+    public void click(By locator){
+        driver.findElement(locator).click();
+    }
+
+    public void typeEmail(String email) {
+        type(By.name("Email"), email);
+    }
+
+    public void typePassword(String password) {
+        type(By.name("Password"), password);
+    }
+
+    public void clickOnLoginLink() {
+        click(By.xpath("//a[.='Log in']"));
+    }
+
+    public void clickOnLoginButton() {
+        click(By.cssSelector("input.button-1.login-button"));
+    }
+
+    protected void checkLogin() {
+        Assert.assertTrue(isElementPresent(By.xpath(" //a[contains(text(),'Log out')]")));
+    }
+
     public boolean isAlertPresent() {
         Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.alertIsPresent());
         if(alert == null){
